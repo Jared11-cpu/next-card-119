@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, FileText, ImagePlus, Menu, Send, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, FileText, ImagePlus, Menu, Send, X } from "lucide-react";
 import { useMemo, useRef, type ChangeEvent } from "react";
 import { useNextCardStore } from "@/store/useNextCardStore";
 import { CompactPlanCatalog } from "@/components/deck/CompactPlanCatalog";
@@ -22,6 +22,7 @@ export function InputComposer() {
     removeImageUpload,
     removeInputAttachment,
     submitGoalAndCreateDeck,
+    resetInputDraft,
     openDeck,
     selectPlan,
     openOverlay
@@ -72,11 +73,11 @@ export function InputComposer() {
       <div className="relative z-10 flex items-center justify-between px-1">
         <button
           type="button"
-          onClick={() => openOverlay("guide")}
+          onClick={hasResult ? resetInputDraft : () => openOverlay("guide")}
           className="grid size-8 place-items-center rounded-full bg-[#ece5d7] text-ink transition hover:scale-95"
-          aria-label="menu"
+          aria-label={hasResult ? "返回输入" : "menu"}
         >
-          <Menu size={15} />
+          {hasResult ? <ArrowLeft size={15} /> : <Menu size={15} />}
         </button>
         <div className="text-sm font-medium tracking-[0.01em] text-ink">Next Card</div>
         <span className="size-8" aria-hidden />
